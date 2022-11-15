@@ -1,12 +1,25 @@
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const { campgroundSchema, reviewSchema } = require('./schema.js');
 const AppError = require('./AppError');
 
 // to verify if the user loggedin
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        req.session.returnTo = req.originalUrl;
+        
+        //如果在删除/修改等操作campground or review时，保存登陆后的地址为 '/campgrounds/' + id
+        const { id } = req.params;
+        if (id != null) {
+            const campground = Campground.findById(id);
+            if (campground != null) {
+                req.session.returnTo = '/campgrounds/' + id;
+            } 
+        } else {
+            req.session.returnTo = req.originalUrl;
+        }
+        
         req.flash('error', 'You must be signed in first!');
+
         return res.redirect('/user/login');
     }
     next();
@@ -29,6 +42,19 @@ module.exports.isAuthor = async (req, res, next) => {
     const campground = await Campground.findById(id);
 
     if (!campground.author.equals(req.user._id)) {
+        req.flash('error', 'You do not have permission to to that!');
+        return res.redirect(`/campgrounds/${id}`);
+    }
+
+    next();
+}
+
+//to verify if the user have the permission to do that with review
+module.exports.isReviewAuthor = async (req, res, next) => {
+    const {id, reviewId} = req.params;
+    const review = await Review.findById(reviewId);
+
+    if (!review.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to to that!');
         return res.redirect(`/campgrounds/${id}`);
     }

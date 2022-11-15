@@ -46,9 +46,12 @@ router.post('/login', password.authenticate('local', { failureRedirect: 'login',
         // req.session.uid = user._id;
         // req.session.username = user.username;
         // req.session.logined = true;
+
         const returnTo = req.session.returnTo;
         delete req.session.returnTo;
+
         const rediretUrl = returnTo || '/campgrounds';
+        
         res.redirect(rediretUrl);
     }))
 
