@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<% layout('campgrounds/layouts/boilerplate') %>
+
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="mb-3 mx-auto" style="width: fit-content;">
+      <img src="/img/002.png" class="card-img-top" alt="Register A User">
+    </div>
+    <h3 class="text-center">Register </h3>
+    <form class="d-inline form-validation" action="/user/register" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" placeholder="username" name="username" id="username" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email </label>
+        <input type="email" class="form-control" placeholder="email" id="email" name="email" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password </label>
+        <input type="password" class="form-control" placeholder="password" id="password" name="password" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="repassword" class="form-label">Password Again</label>
+        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="password" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="text-center">
+        <a class="card-link btn btn-success" href="/register"> Reset</a>
+
+        <button class="btn btn-warning">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

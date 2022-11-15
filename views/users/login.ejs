@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<% layout('campgrounds/layouts/boilerplate') %>
+
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="mb-3 mx-auto" style="width: fit-content;">
+      <img src="/img/001.png" class="card-img-top" alt="Register A User" >
+    </div>
+    <h3 class="text-center">Login</h3>
+    <form class="d-inline form-validation" action="/user/login" method="POST" novalidate>
+
+      <div class="mb-3 ">
+        <label for="username" class="form-label ">Username </label>
+        <input type="text" class="form-control d-inline" placeholder="Username" id="username" name="username"
+          required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password </label>
+        <input type="password" class="form-control" placeholder="password" id="password" name="password"
+          required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="text-center">
+        <a class="card-link btn btn-success" href="/user/login"> Reset</a>
+
+        <button class="btn btn-warning">Submit</button>
+      </div>
+      
+    </form>
+  </div>
+</div>
