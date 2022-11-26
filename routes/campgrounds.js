@@ -6,28 +6,20 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../AppError');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 
-router.get('/', catchAsync(campgrounds.index))
-
-router.post('/', isLoggedIn, validateCampground, catchAsync(campgrounds.addCampground))
+//使用 router.route('path') 将有同样前缀的路径组织到一起
+router.route('/')
+    .get(catchAsync(campgrounds.index))
+    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.addCampground))
 
 //这个方法必须放在根据id查询方法的前面
 router.get('/new', isLoggedIn, campgrounds.renderNewForm)
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm))
 
-router.get('/:id', catchAsync(campgrounds.showCampground))
-
-/**
- * update the campground (find by id)
- */
-
-router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
-
-/**
- * delete the campground (by id)
- */
-
-router.delete('/:id', isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground))
+router.route('/:id')
+    .get(catchAsync(campgrounds.showCampground))
+    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
+    .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground))
 
 module.exports = router;
 
