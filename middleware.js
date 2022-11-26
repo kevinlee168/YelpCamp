@@ -7,7 +7,7 @@ const AppError = require('./AppError');
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         
-        //如果在删除/修改等操作campground or review时，保存登陆后的地址为 '/campgrounds/' + id
+        //如果在删除/修改等操作campground or review时，保存登陆后的地址为
         const { id } = req.params;
         if (id != null) {
             const campground = Campground.findById(id);

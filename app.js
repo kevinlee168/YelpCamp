@@ -82,8 +82,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/fakeUser', async (req, res) => {
-    const user = new User({ email: 'kevin@gmail.com', username: 'Kevin' });
-    const newUser = await User.register(user, 'chicken');
+    const user = new User({ email: 'kevinss@gmail.com', username: 'k' });
+    const newUser = await User.register(user, 'k');
     res.send(newUser);
 })
 
