@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Review = require('./review');
 
 const ImageSchema = new Schema({
-    url: String, 
+    url: String,
     filename: String
 })
 
@@ -11,11 +11,17 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 })
 
-const opts = {toJSON: { virtual: true }}
+const opts = { toJSON: { virtual: true } }
 
 const CampgroundSchema = new Schema({
     title: String,
-    image: String,
+    images: [
+        {
+            url: String,
+            filename: String
+        }
+
+    ],
     price: {
         type: Number
     },

@@ -11,7 +11,9 @@ module.exports.renderNewForm = async (req, res) => {
 
 module.exports.addCampground = async (req, res, next) => {
     const newCampground = new Campground(req.body.campground);
+    newCampground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
     newCampground.author = req.user._id;
+    console.log(newCampground);
     await newCampground.save();
     req.flash('success', 'Add Campground Successfully.');
     res.redirect(`/campgrounds/${newCampground._id}`);
