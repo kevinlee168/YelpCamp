@@ -6,7 +6,7 @@
     <% for( let camp of campgrounds ) { %>
     <div class="col">
       <div class="card h-100">
-        <a href="/campgrounds/<%= camp._id %>"><img src="<%= camp.image %> " class="card-img-top" alt="..."></a>
+        <a href="/campgrounds/<%= camp._id %>"><img src="<%= camp.images[0].url %> " class="card-img-top" alt="..."></a>
         <div class="card-body">
           <h5 class="card-title"><a href="/campgrounds/<%= camp._id %>"><%= camp.title %></a></h5>
           <p class="card-text"><%= camp.description %></p>

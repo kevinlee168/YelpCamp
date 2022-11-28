@@ -23,9 +23,19 @@ const seedDB = async() => {
             author: `${ sample(['61e242da6446da787babe2d1', '61e00c33b549d9b2cfc3fedd'])}`,
             title: `${ sample(descriptors) } ${ sample(places) }`,
             location: `${ cities[random1000].city }, ${ cities[random1000].state }`,
-            image: 'https://source.unsplash.com/collection/483251', // random image from upsplash
             description: 'Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.',
-            price: 0
+            price: 0,
+            images: [
+                {
+                  url: 'https://res.cloudinary.com/daxhp4sga/image/upload/v1669559477/YelpCamp/nrjyqw2tedg0xvurzr00.jpg',
+                  filename: 'YelpCamp/vkbefqz4nwpvdabizmx4',
+                },
+                {
+                //   url: 'https://source.unsplash.com/collection/483251',
+                  url: 'https://res.cloudinary.com/daxhp4sga/image/upload/v1669559475/YelpCamp/vkbefqz4nwpvdabizmx4.jpg',
+                  filename: 'YelpCamp/nrjyqw2tedg0xvurzr00',
+                }
+              ]
         })
         camp.save();
         

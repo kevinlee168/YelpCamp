@@ -30,21 +30,21 @@
         </div>
 
         <div class="mb-3">
-          <span>Upload an image: </span><input type="file" name="image" id="image" multiple />
-          <div class="valid-feedback">Looks good!</div>
-        </div>
-
-        <!-- <div class="mb-3">
-          <label for="image" class="form-label">Image URL </label>
-          <input type="text" class="form-control" id="image" name="campground[image]" required />
-          <div class="valid-feedback">Looks good!</div>
-        </div> -->
-
-        <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea class="form-control" id="description" name="campground[description]" rows="3"
             placeholder="Give a description about the campground..." required></textarea>
         </div>
+
+        <div class="mb-3">
+          <label for="formFileMultiple" class="form-label">Upload Images</label>
+          <input class="form-control" type="file" id="image" name="image" multiple>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <!-- <div class="mb-3">
+          <span>Upload images: </span><input type="file" name="image" id="image" multiple />
+          <div class="valid-feedback">Looks good!</div>
+        </div> -->
 
         <a class="card-link btn btn-success" href="/campgrounds"> Cancel </a>
 
