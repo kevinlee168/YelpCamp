@@ -5,23 +5,22 @@ const Review = require('./review');
 const ImageSchema = new Schema({
     url: String,
     filename: String
+});
+
+//using mongoose to create virtual property: thumbnail_small 
+ImageSchema.virtual('thumbnail_small').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
 })
 
 ImageSchema.virtual('thumbnail').get(function () {
-    return this.url.replace('/upload', '/upload/w_200');
+    return this.url.replace('/upload', '/upload/w_414,h_275');
 })
 
 const opts = { toJSON: { virtual: true } }
 
 const CampgroundSchema = new Schema({
     title: String,
-    images: [
-        {
-            url: String,
-            filename: String
-        }
-
-    ],
+    images: [ImageSchema],
     price: {
         type: Number
     },

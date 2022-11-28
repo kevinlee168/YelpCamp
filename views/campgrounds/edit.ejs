@@ -31,14 +31,21 @@
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea class="form-control" value="<%= campground.description %>" id="description"
-            name="campground[description]" rows="3">
-<%= campground.description %></textarea>
+            name="campground[description]" rows="3"><%= campground.description %></textarea>
         </div>
 
         <div class="mb-3">
           <label for="formFileMultiple" class="form-label">Add More Images</label>
           <input class="form-control" type="file" id="image" name="image" multiple>
           <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="mb-3">
+          <% campground.images.forEach(function(img, i) { %>
+            <img src="<%= img.thumbnail_small %>" class="img-thumbnail">
+            <label>Delete? &nbsp;&nbsp;</label><input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
+              value="<%= img.filename %>">&nbsp;&nbsp;
+            <% }) %>
         </div>
 
         <a class="card-link btn btn-success" href="/campgrounds/<%= campground._id %>">

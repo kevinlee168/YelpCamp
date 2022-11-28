@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -48,8 +49,6 @@ module.exports.showCampground = async (req, res, next) => {
 }
 
 
-
-
 module.exports.updateCampground = async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
@@ -59,12 +58,19 @@ module.exports.updateCampground = async (req, res, next) => {
     }
 
     const camp = await Campground.findByIdAndUpdate(id, req.body.campground, { runValidators: true, new: true });
-
     const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
-    camp.images.push(...imgs);
+
+    camp.images.push(...imgs); //add new added image to the images arrary, instead of replacing all the elements of the arrary
     await camp.save();
-    
-    //res.render('campgrounds/show', { campground });
+
+    if (req.body.deleteImages) {
+        for (let imagename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(imagename);
+        }
+
+        await camp.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
+    }
+
     req.flash('success', 'Successfully update the campground.');
     res.redirect(`/campgrounds/${id}`);
 }
@@ -73,6 +79,10 @@ module.exports.deleteCampground = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndDelete(id);  //This function triggers the following middleware: findOneAndDelete()
 
+    for (let img of campground.images) {
+        await cloudinary.uploader.destroy(img.filename);
+    }
+    
     req.flash('success', 'Delete Campground Successfully.');
     res.redirect('/campgrounds/');
 }
