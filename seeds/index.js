@@ -25,6 +25,10 @@ const seedDB = async() => {
             location: `${ cities[random1000].city }, ${ cities[random1000].state }`,
             description: 'Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.',
             price: 0,
+            geometry: {
+              type: 'Point', 
+              coordinates: [ -73.9866, 40.7306 ]
+            },
             images: [
                 {
                   url: 'https://res.cloudinary.com/daxhp4sga/image/upload/v1669559477/YelpCamp/nrjyqw2tedg0xvurzr00.jpg',

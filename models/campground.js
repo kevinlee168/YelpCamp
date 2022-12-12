@@ -21,6 +21,17 @@ const opts = { toJSON: { virtual: true } }
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
+    geometry: {
+        type: {
+          type: String,
+          enum: ['Point'], // 'location.type' must be 'Point'
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
+      },
     price: {
         type: Number
     },

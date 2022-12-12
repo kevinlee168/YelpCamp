@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+dental_mobile_theme.css
+dental_desk_theme.css
