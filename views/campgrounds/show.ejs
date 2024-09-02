@@ -158,6 +158,6 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js'></script>
     <script>
         const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-        const campground = <%- JSON.stringify(campground) %>;
+        const campground = <%- JSON.stringify(campground) %>; // this code is ok.
     </script>
     <script src="/js/showPageMap.js"></script>

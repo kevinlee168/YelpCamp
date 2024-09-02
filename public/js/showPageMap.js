@@ -13,4 +13,3 @@ new mapboxgl.Marker()
             .setHTML(`<h5>${campground.title}</h5><p>${campground.location}</p>`)
     )
     .addTo(map);
-
