@@ -76,6 +76,12 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use((req, res, next) => {
+    // use currentPage to keep the name of the current page. 
+    res.locals.currentPage = req.path.split('/')[1] || 'home';
+    next();
+  });
+
 /**************set router for campgrounds ***************/
 app.use('/campgrounds', campgroundRouter);
 /**************set router for reviews ***************/
@@ -83,7 +89,7 @@ app.use('/campgrounds/:id/reviews', reviewRouter)
 app.use('/user', userRouter)
 
 app.get('/', (req, res) => {
-    throw new AppError("Home page error...", "500");
+    res.render('home');
 })
 
 app.get('/fakeUser', async (req, res) => {
