@@ -1,8 +1,18 @@
 <% layout('campgrounds/layouts/boilerplate') %>
-<div class="col-6 offset-3">
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading"><%= status %> Error!</h4>
-        <hr>
-        <p><%= message %> </p>
+    <div class="col-6 offset-3">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">
+                <%= statusCode %> Error!
+            </h4>
+            <p>
+                <%= err.message %>
+            </p>
+            <% if (process.env.NODE_ENV !=="production" ) { %>
+                <hr>
+                <p>
+                    <%= err.stack %>
+                </p>
+
+                <% } %>
+        </div>
     </div>
-</div>

@@ -19,6 +19,8 @@ const User = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const mongoSanitize = require('express-mongo-sanitize');
+
 
 const app = express();
 
@@ -30,8 +32,11 @@ app.use(express.urlencoded({ extended: true }));  //支持获取来自前端表�
 app.use(methodOverride('_method')); //使得服务器端支持来自前端PUT等方法
 app.use(morgan('dev'));
 
+app.use(mongoSanitize()); // use Express 4.x middleware which sanitizes user-supplied data to prevent MongoDB Operator Injection.
+
 /*************** express-session config  *****************/
 const sessionConfig = {
+    name: 'session',
     secret: 'itshoudbeabettersecret',
     resave: false,
     saveUninitialized: true,
@@ -70,6 +75,7 @@ db.once('open', () => { console.log('DB connected') });
 /*************integrate flash message  ***********/
 app.use(flash());
 app.use((req, res, next) => {
+    console.log(req.query);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.user = req.user;
@@ -80,7 +86,7 @@ app.use((req, res, next) => {
     // use currentPage to keep the name of the current page. 
     res.locals.currentPage = req.path.split('/')[1] || 'home';
     next();
-  });
+});
 
 /**************set router for campgrounds ***************/
 app.use('/campgrounds', campgroundRouter);
@@ -105,8 +111,9 @@ app.all('*', (req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-    const { status = 500, message = 'something went wrong' } = err;
-    res.status(status).render('error', { status, message });
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'something went wrong';
+    res.status(statusCode).render('error', { statusCode, err });
 })
 
 
