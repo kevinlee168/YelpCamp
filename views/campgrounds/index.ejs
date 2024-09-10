@@ -7,12 +7,12 @@
       <div class="col">
         <div class="card h-100">
           <% if (camp.images.length> 0) { %>
-            <a href="/campgrounds/<%= camp._id %>"><img src="<%= camp.images[0].thumbnail %> " class="card-img-top"
+            <a href="/campgrounds/<%= camp._id %>"><img src="<%= camp.images[0].thumbnail %> " crossorigin="anonymous" class="card-img-top"
                 alt="..."></a>
             <% } else { %>
               <a href="/campgrounds/<%= camp._id %>"><img
                   src="https://res.cloudinary.com/daxhp4sga/image/upload/w_414,h_275/v1669559477/YelpCamp/nrjyqw2tedg0xvurzr00.jpg"
-                  class="card-img-top" alt="..."></a>
+                  crossorigin="anonymous" class="card-img-top" alt="..."></a>
               <% } %>
                 <div class="card-body">
                   <h5 class="card-title"><a href="/campgrounds/<%= camp._id %>"> <%= camp.title %></a></h5>
@@ -41,7 +41,7 @@
     const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};
     console.log(campgrounds);
   </script>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js' crossorigin="anonymous"></script>
   <script src="/js/clusterMap.js"></script>
   <!-- 
 <ul>
